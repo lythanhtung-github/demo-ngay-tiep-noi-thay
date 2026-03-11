@@ -224,12 +224,12 @@
     <section id="step-2" class="step">
         <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Thầy trong chúng con</h2>
         <div class="gallery-grid" id="gallery-grid"></div>
-        <button class="btn-orange" onclick="goToStep(3, 'Đệ tử của Ôn')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(3, 'Là một đệ tử của Ôn')">Tiếp tục</button>
     </section>
 
     <!-- STEP 3: Thầy và Ôn -->
     <section id="step-3" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Đệ tử của Ôn</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Người đệ tử của Ôn</h2>
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="https://placehold.co/800x600/d97706/white?text=Hình+Thầy+và+Ôn" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
         </div>
@@ -249,10 +249,13 @@
     <section id="step-5" class="step">
         <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Gia đình thân thương của Thầy</h2>
         <div class="w-full max-w-2xl aspect-video bg-black border-4 border-white shadow-2xl rounded-lg overflow-hidden flex items-center justify-center">
-            <div class="text-white text-center">
-                <p class="mb-4">Video lời chúc từ Gia đình Thầy</p>
-                <span class="text-6xl">🎬</span>
-            </div>
+            <video 
+                class="w-full h-full object-cover"
+                controls
+                preload="metadata">
+                <source src="./assets/video/GIA_DINH_CHUC_THAY.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ video.
+            </video>
         </div>
         <button class="btn-orange" onclick="goToStep(6, 'Lời tri ân')">Tiếp tục</button>
     </section>
@@ -393,7 +396,7 @@
                 setTimeout(() => {
                     overlay.classList.remove('active');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 1500);
+                }, 3000);
             }, 1000);
         }
 
