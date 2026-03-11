@@ -66,6 +66,7 @@
             font-size: 2.5rem;
             text-align: center;
             font-weight: bold;
+            padding: 10px;
         }
 
         /* Định dạng các Step */
@@ -210,12 +211,12 @@
 
     <!-- STEP 1: Khởi đầu -->
     <section id="step-1" class="step active">
-        <h1 class="text-4xl md:text-6xl text-orange-800 font-script mb-8">Mừng ngày tiếp nối</h1>
+        <h1 class="text-6xl md:text-6xl text-orange-800 font-script mb-8">Mừng ngày tiếp nối</h1>
         <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-orange-500 overflow-hidden mb-4 shadow-xl">
-            <img src="https://placehold.co/400x400/f59e0b/white?text=Thầy+Nhật+Đạo" alt="Thầy Nhật Đạo" class="w-full h-full object-cover">
+            <img src="./assets/images/AVATAR.jpg" alt="Thầy Nhật Đạo" class="w-full h-full object-cover">
         </div>
         <h2 class="text-2xl md:text-3xl font-bold text-orange-900">Thầy Nhật Đạo</h2>
-        <p class="text-orange-700 mt-2">Chùa Phước Duyên</p>
+        <p class="text-orange-700 mt-2">(太阳花)</p>
         <button class="btn-orange" onclick="goToStep(2, 'Thầy trong chúng con...')">Tiếp tục</button>
     </section>
 
@@ -232,16 +233,16 @@
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="https://placehold.co/800x600/d97706/white?text=Hình+Thầy+và+Ôn" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
         </div>
-        <button class="btn-orange" onclick="goToStep(4, 'Sư phụ của Chánh Tâm')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(4, 'Người Thầy tận tụy quan sát, dìu dắt các thế hệ của Chánh Tâm từng bước trưởng thành bằng sự kiên nhẫn và tâm từ bi')">Tiếp tục</button>
     </section>
 
     <!-- STEP 4: Thầy và Chánh Tâm -->
     <section id="step-4" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Sư phụ của Chánh Tâm</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Thầy của Chánh Tâm</h2>
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="https://placehold.co/800x600/f59e0b/white?text=Hình+Thầy+và+Chánh+Tâm" alt="Thầy và Chánh Tâm" class="w-full h-auto" loading="lazy">
         </div>
-        <button class="btn-orange" onclick="goToStep(5, 'Món quà đặc biệt')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(5, 'Và đây là một món quà đặc biệt của cho Thầy...')">Tiếp tục</button>
     </section>
 
     <!-- STEP 5: Video -->
@@ -253,7 +254,7 @@
                 <span class="text-6xl">🎬</span>
             </div>
         </div>
-        <button class="btn-orange" onclick="goToStep(6, 'Lời tri ân', true)">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(6, 'Lời tri ân')">Tiếp tục</button>
     </section>
 
     <!-- STEP 6: Tri ân -->
@@ -285,15 +286,23 @@
 
     <!-- Âm nhạc -->
     <audio id="bg-music" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+        <source src="./assets/music/BACKGROUND_MUSIC.MP3" type="audio/mpeg">
+    </audio>
+    <audio id="bg-music-thankyou" loop>
+        <source src="./assets/music/ON_THAY.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         // MẢNG ĐỐI TƯỢNG ẢNH (note và image)
-        const photoList = Array.from({ length: 98 }, (_, i) => ({
-            image: `https://picsum.photos/seed/${i + 300}/800/500`, // Ảnh hình chữ nhật
-            note: `Kỷ niệm hành trình của Thầy Nhật Đạo - Hình ảnh thứ ${i + 1}.`
-        }));
+        const photoList = [
+            { image: `./assets/images/15.jpg`, note: `Ngày tiếp nối Thầy 2025` },
+            { image: `./assets/images/20.jpg`, note: `Thầy và nhóm Hít Thở Mỉm Cười` },
+            { image: `./assets/images/21.jpg`, note: `Thầy ngồi thiền trên đỉnh Yên Tử` },
+            { image: `./assets/images/22.jpg`, note: `Thầy và lễ phát nguyện khóa tu 2024` },
+            { image: `./assets/images/23.jpg`, note: `Thầy cùng Chánh Tâm leo Yên Tử` },
+            { image: `./assets/images/24.jpg`, note: `Thầy trong chuyến đi thiện nguyện Sapa` },
+            { image: `./assets/images/25.jpg`, note: `Thầy trong chuyến đi thiện nguyện Phú Yên` },
+        ];
 
         const wishList = Array.from({ length: 50 }, (_, i) => ({
             name: `Học trò ${i + 1}`,
@@ -311,7 +320,7 @@
         // Hiệu ứng icon bay
         function initIcons() {
             const container = document.getElementById('floating-icons-container');
-            const symbols = ['🌸', '🏵️', '✨', '🍃', '🧡', '🌼'];
+            const symbols = ['🌈', '🏵️', '✨', '🍃', '🧡', '☘️', '🍀'];
             setInterval(() => {
                 const el = document.createElement('div');
                 el.className = 'floating-icon';
@@ -368,16 +377,13 @@
         }
 
         // Logic chuyển Step với hiệu ứng màn hình đen
-        function goToStep(num, text, playMusic = false) {
+        function goToStep(num, text) {
             const overlay = document.getElementById('transition-overlay');
             const overlayTxt = document.getElementById('overlay-text');
             overlayTxt.innerText = text;
             overlay.classList.add('active');
 
-            if(playMusic) {
-                const music = document.getElementById('bg-music');
-                music.play().catch(() => console.log("Cần tương tác người dùng để phát nhạc."));
-            }
+           handleMusic(num);
 
             setTimeout(() => {
                 document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -389,6 +395,55 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }, 1500);
             }, 1000);
+        }
+
+        function handleMusic(num) {
+            const music = document.getElementById('bg-music');
+            const musicThankYou = document.getElementById('bg-music-thankyou');
+
+            if (num == 2) {
+                music.play().catch(() => console.log("Cần tương tác người dùng để phát nhạc."));
+            }
+            if (num == 5) {
+                fadeOutMusic(5000, music);
+            }
+            if (num == 6) {
+                fadeInMusic(3000, musicThankYou);
+            }
+        }
+
+        function fadeOutMusic(duration = 3000, music) {
+            const stepTime = 50;
+            const steps = duration / stepTime;
+            const volumeStep = music.volume / steps;
+
+            const fade = setInterval(() => {
+                if (music.volume - volumeStep > 0) {
+                    music.volume -= volumeStep;
+                } else {
+                    music.volume = 0;
+                    music.pause();
+                    clearInterval(fade);
+                }
+            }, stepTime);
+        }
+
+        function fadeInMusic(duration = 3000, music) {
+            music.volume = 0;
+            music.play().catch(() => console.log("Cần tương tác người dùng để phát nhạc."));
+
+            const stepTime = 50;
+            const steps = duration / stepTime;
+            const volumeStep = 1 / steps;
+
+            const fade = setInterval(() => {
+            if (music.volume + volumeStep < 1) {
+                music.volume += volumeStep;
+            } else {
+                music.volume = 1;
+                clearInterval(fade);
+            }
+            }, stepTime);
         }
 
         // Logic Modal
