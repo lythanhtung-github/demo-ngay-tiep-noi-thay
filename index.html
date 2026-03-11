@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mừng Ngày Tiếp Nối - Thầy Nhật Đạo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&family=Saira+Condensed:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #f59e0b;
+            --dark-orange: #d97706;
+            --light-orange: #fef3c7;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--light-orange);
+            overflow-x: hidden;
+            margin: 0;
+            user-select: none;
+        }
+
+        .font-script { font-family: 'Dancing Script', cursive; }
+        .font-heading { font-family: 'Saira Condensed', sans-serif; }
+
+        /* Hiệu ứng icon bay lên */
+        .floating-icon {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 100;
+            animation: floatUp linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Chuyển cảnh nền đen */
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease;
+        }
+
+        #transition-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .transition-text {
+            color: var(--primary-orange);
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Định dạng các Step */
+        .step {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .step.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-orange {
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 0.75rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            margin-top: 2rem;
+            cursor: pointer;
+        }
+
+        .btn-orange:hover {
+            background-color: var(--dark-orange);
+            transform: scale(1.05);
+        }
+
+        /* Step 2: Lưới ảnh hành trình (Khung chữ nhật) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        .gallery-item {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 3px solid white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: #e5e7eb; /* Placeholder color */
+        }
+
+        .gallery-item:hover { 
+            transform: translateY(-5px);
+            border-color: var(--primary-orange);
+        }
+
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Modal xem ảnh phóng to */
+        #photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content { 
+            max-width: 100%; 
+            max-height: 70vh; 
+            border: 4px solid white;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .modal-note { 
+            color: #fbbf24; 
+            margin-top: 1.5rem; 
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        /* Lời chúc */
+        .wish-card {
+            background: white;
+            border: 2px solid var(--primary-orange);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 4px 4px 0px var(--primary-orange);
+        }
+
+        .scroll-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="floating-icons-container"></div>
+
+    <!-- Lớp phủ chuyển cảnh -->
+    <div id="transition-overlay">
+        <div class="transition-text font-heading" id="overlay-text"></div>
+    </div>
+
+    <!-- STEP 1: Khởi đầu -->
+    <section id="step-1" class="step active">
+        <h1 class="text-4xl md:text-6xl text-orange-800 font-script mb-8">Mừng ngày tiếp nối</h1>
+        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-orange-500 overflow-hidden mb-4 shadow-xl">
+            <img src="https://placehold.co/400x400/f59e0b/white?text=Thầy+Nhật+Đạo" alt="Thầy Nhật Đạo" class="w-full h-full object-cover">
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold text-orange-900">Thầy Nhật Đạo</h2>
+        <p class="text-orange-700 mt-2">Chùa Phước Duyên</p>
+        <button class="btn-orange" onclick="goToStep(2, 'Thầy trong chúng con...')">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 2: Thầy trong chúng con (Gallery) -->
+    <section id="step-2" class="step">
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Thầy trong chúng con</h2>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <button class="btn-orange" onclick="goToStep(3, 'Đệ tử của Ôn')">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 3: Thầy và Ôn -->
+    <section id="step-3" class="step">
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Đệ tử của Ôn</h2>
+        <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
+            <img src="https://placehold.co/800x600/d97706/white?text=Hình+Thầy+và+Ôn" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
+        </div>
+        <button class="btn-orange" onclick="goToStep(4, 'Sư phụ của Chánh Tâm')">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 4: Thầy và Chánh Tâm -->
+    <section id="step-4" class="step">
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Sư phụ của Chánh Tâm</h2>
+        <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
+            <img src="https://placehold.co/800x600/f59e0b/white?text=Hình+Thầy+và+Chánh+Tâm" alt="Thầy và Chánh Tâm" class="w-full h-auto" loading="lazy">
+        </div>
+        <button class="btn-orange" onclick="goToStep(5, 'Món quà đặc biệt')">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 5: Video -->
+    <section id="step-5" class="step">
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Gia đình thân thương của Thầy</h2>
+        <div class="w-full max-w-2xl aspect-video bg-black border-4 border-white shadow-2xl rounded-lg overflow-hidden flex items-center justify-center">
+            <div class="text-white text-center">
+                <p class="mb-4">Video lời chúc từ Gia đình Thầy</p>
+                <span class="text-6xl">🎬</span>
+            </div>
+        </div>
+        <button class="btn-orange" onclick="goToStep(6, 'Lời tri ân', true)">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 6: Tri ân -->
+    <section id="step-6" class="step">
+        <div class="p-8 bg-white/50 rounded-2xl border-2 border-orange-200 max-w-lg shadow-inner">
+            <h2 class="text-4xl font-script text-orange-800 mb-6">Lời tri ân</h2>
+            <p class="text-2xl text-orange-900 leading-relaxed italic">"Cám ơn sự hiện diện của Thầy"</p>
+        </div>
+        <button class="btn-orange" onclick="goToStep(7, 'Lời chúc của những người học trò thân thương')">Tiếp tục</button>
+    </section>
+
+    <!-- STEP 7: Danh sách lời chúc -->
+    <section id="step-7" class="step">
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-widest">Lời chúc thân thương</h2>
+        <div class="scroll-container" id="wishes-container"></div>
+        <button class="btn-orange mb-10" onclick="location.reload()">Quay lại từ đầu</button>
+    </section>
+
+    <!-- Photo Modal Overlay -->
+    <div id="photo-modal">
+        <button class="absolute top-5 right-8 text-white text-5xl z-50 hover:text-orange-400" onclick="closeModal()">&times;</button>
+        <img src="" id="modal-img" class="modal-content">
+        <p id="modal-note" class="modal-note font-semibold"></p>
+        <div class="flex gap-16 mt-6">
+            <button id="prev-btn" class="text-white text-6xl hover:text-orange-500 transition-transform active:scale-90" onclick="changePhoto(-1)">&#10094;</button>
+            <button id="next-btn" class="text-white text-6xl hover:text-orange-500 transition-transform active:scale-90" onclick="changePhoto(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Âm nhạc -->
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // MẢNG ĐỐI TƯỢNG ẢNH (note và image)
+        const photoList = Array.from({ length: 98 }, (_, i) => ({
+            image: `https://picsum.photos/seed/${i + 300}/800/500`, // Ảnh hình chữ nhật
+            note: `Kỷ niệm hành trình của Thầy Nhật Đạo - Hình ảnh thứ ${i + 1}.`
+        }));
+
+        const wishList = Array.from({ length: 50 }, (_, i) => ({
+            name: `Học trò ${i + 1}`,
+            content: `Kính chúc Thầy ngày tiếp nối an lạc, vạn sự cát tường. Cảm ơn Thầy đã luôn dẫn dắt chúng con trên con đường đạo hạnh.`
+        }));
+
+        let currentIdx = 0;
+
+        window.onload = () => {
+            initIcons();
+            renderGallery();
+            renderWishes();
+        };
+
+        // Hiệu ứng icon bay
+        function initIcons() {
+            const container = document.getElementById('floating-icons-container');
+            const symbols = ['🌸', '🏵️', '✨', '🍃', '🧡', '🌼'];
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'floating-icon';
+                el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                el.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 8000);
+            }, 600);
+        }
+
+        // Tạo lưới ảnh cho Step 2 (Sử dụng DocumentFragment và Event Delegation)
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const fragment = document.createDocumentFragment();
+            
+            photoList.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item shadow-md';
+                div.dataset.index = index; // Lưu index vào data attribute
+                // Thêm loading="lazy" để tối ưu tải trang
+                div.innerHTML = `<img src="${item.image}" alt="Kỷ niệm ${index}" loading="lazy">`;
+                fragment.appendChild(div);
+            });
+            
+            grid.appendChild(fragment);
+
+            // Sử dụng Event Delegation: Chỉ gán 1 listener cho cha thay vì 98 listener cho con
+            grid.addEventListener('click', (e) => {
+                const item = e.target.closest('.gallery-item');
+                if (item) {
+                    const index = parseInt(item.dataset.index);
+                    openModal(index);
+                }
+            });
+        }
+
+        // Tạo danh sách lời chúc cho Step 7
+        function renderWishes() {
+            const container = document.getElementById('wishes-container');
+            const fragment = document.createDocumentFragment();
+            
+            wishList.forEach(w => {
+                const card = document.createElement('div');
+                card.className = 'wish-card text-left';
+                card.innerHTML = `
+                    <p class="font-bold text-orange-800 border-b border-orange-100 mb-2">${w.name}</p>
+                    <p class="italic text-gray-700 text-sm md:text-base leading-relaxed">"${w.content}"</p>
+                `;
+                fragment.appendChild(card);
+            });
+            container.appendChild(fragment);
+        }
+
+        // Logic chuyển Step với hiệu ứng màn hình đen
+        function goToStep(num, text, playMusic = false) {
+            const overlay = document.getElementById('transition-overlay');
+            const overlayTxt = document.getElementById('overlay-text');
+            overlayTxt.innerText = text;
+            overlay.classList.add('active');
+
+            if(playMusic) {
+                const music = document.getElementById('bg-music');
+                music.play().catch(() => console.log("Cần tương tác người dùng để phát nhạc."));
+            }
+
+            setTimeout(() => {
+                document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+                const nextStep = document.getElementById(`step-${num}`);
+                if (nextStep) nextStep.classList.add('active');
+                
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 1500);
+            }, 1000);
+        }
+
+        // Logic Modal
+        function openModal(index) {
+            currentIdx = index;
+            updateModal();
+            document.getElementById('photo-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('photo-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Xóa src khi đóng modal để giải phóng tài nguyên nếu cần
+            document.getElementById('modal-img').src = '';
+        }
+
+        function changePhoto(dir) {
+            const next = currentIdx + dir;
+            if(next >= 0 && next < photoList.length) {
+                currentIdx = next;
+                updateModal();
+            }
+        }
+
+        function updateModal() {
+            const img = document.getElementById('modal-img');
+            const noteText = document.getElementById('modal-note');
+            const prev = document.getElementById('prev-btn');
+            const next = document.getElementById('next-btn');
+
+            // Chỉ tải ảnh modal khi cần thiết
+            img.src = photoList[currentIdx].image;
+            noteText.innerText = photoList[currentIdx].note;
+
+            // Hiệu ứng mờ nút khi ở giới hạn danh sách
+            prev.style.opacity = currentIdx === 0 ? "0.1" : "1";
+            prev.style.pointerEvents = currentIdx === 0 ? "none" : "auto";
+            
+            next.style.opacity = currentIdx === photoList.length - 1 ? "0.1" : "1";
+            next.style.pointerEvents = currentIdx === photoList.length - 1 ? "none" : "auto";
+        }
+
+        // Hỗ trợ phím mũi tên
+        window.addEventListener('keydown', (e) => {
+            if(document.getElementById('photo-modal').style.display === 'flex') {
+                if(e.key === 'ArrowRight') changePhoto(1);
+                if(e.key === 'ArrowLeft') changePhoto(-1);
+                if(e.key === 'Escape') closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
