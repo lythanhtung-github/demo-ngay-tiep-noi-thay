@@ -260,7 +260,8 @@
 
     <!-- STEP 2: Thầy trong chúng con (Gallery) -->
     <section id="step-2" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Đầu tiên mời Thầy cùng xem lại những kỉ niệm này để định hình rõ hơn về Thầy trong chúng con nhé!</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Đầu tiên mời Thầy cùng xem lại những kỉ niệm này<br>
+            để định hình rõ hơn về Thầy trong chúng con nhé!</h2>
         <div class="gallery-grid" id="gallery-grid"></div>
         <button class="btn-orange" onclick="goToStep(3, 'Trước hết, Thầy là Người Đệ Tử thân cận của Ôn')">Tiếp tục</button>
     </section>
@@ -269,7 +270,7 @@
     <section id="step-3" class="step">
         <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Người đệ tử của Ôn</h2>
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
-            <img src="https://placehold.co/800x600/d97706/white?text=Hình+Thầy+và+Ôn" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
+            <img src="./assets/images/THAY_VA_ON.jpg" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
         </div>
         <div class="on-note-box">
             <p class="text-orange-900 leading-relaxed italic mb-1">
@@ -287,7 +288,7 @@
 
     <!-- STEP 4: Thầy và Chánh Tâm -->
     <section id="step-4" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Thầy người Thầy của Chánh Tâm</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Thầy là người Thầy của Chánh Tâm</h2>
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="./assets/images/CHANHTAM.jpg" alt="Thầy và Chánh Tâm" class="w-full h-auto" loading="lazy">
         </div>
@@ -301,11 +302,12 @@
 
     <!-- STEP 5: Gia đình (Bổ sung ảnh + Câu nói + Video) -->
     <section id="step-5" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Những lời thương chúc của gia đình huyết thống của Thầy, những người đã đưa Thầy đến với thế giới này, đến với chúng con</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Những lời thương chúc của gia đình huyết thống<br>
+            những người đã đưa Thầy đến với thế giới này, đến với chúng con</h2>
         
         <!-- Hình ảnh gia đình khung ngang -->
         <div class="family-image-container">
-            <img src="./assets/images/FAMILY/GIA_DINH_HANH_PHUC.jpg" alt="Gia đình Thầy" class="family-img-horizontal" onerror="this.src='https://placehold.co/800x450/fde68a/92400e?text=Gia+Đình+Hạnh+Phúc'">
+            <img src="./assets/images/FAMILY/GIA_DINH_HANH_PHUC.jpg" alt="Gia đình Thầy" class="family-img-horizontal">
             <div class="grid grid-cols-2 gap-4">
                  <img src="./assets/images/FAMILY_2.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
                  <img src="./assets/images/FAMILY_3.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
@@ -366,52 +368,10 @@
         <source src="./assets/music/ON_THAY.mp3" type="audio/mpeg">
     </audio>
 
-    <script>
-        // MẢNG ĐỐI TƯỢNG ẢNH (note và image)
-        const photoList = [
-            { image: `./assets/images/01.jpg`, note: `Thầy lúc còn là điệu` },
-            { image: `./assets/images/02.jpg`, note: `Thầy lúc còn là điệu` },
-            { image: `./assets/images/03.jpg`, note: `Thầy và gia đình huyết thống` },
-            { image: `./assets/images/04.jpg`, note: `Thầy và gia đình huyết thống` },
-            { image: `./assets/images/05.jpg`, note: `Thầy và gia đình huyết thống` },
-            { image: `./assets/images/06.jpg`, note: `Thầy và gia đình huyết thống` },
-            { image: `./assets/images/07.jpg`, note: `Thầy chụp cùng 2 gia đình Chị Nhật và Chị Xù` },
-            { image: `./assets/images/10.jpg`, note: `Thầy chụp cùng 2 lớp trưởng Chu Niên 17` },
-            { image: `./assets/images/15.jpg`, note: `Ngày tiếp nối Thầy 2025` },
-            { image: `./assets/images/20.jpg`, note: `Thầy và nhóm Hít Thở Mỉm Cười` },
-            { image: `./assets/images/21.jpg`, note: `Thầy ngồi thiền trên đỉnh Yên Tử` },
-            { image: `./assets/images/22.jpg`, note: `Thầy và lễ phát nguyện khóa tu 2024` },
-            { image: `./assets/images/23.jpg`, note: `Thầy cùng Chánh Tâm leo Yên Tử` },
-            { image: `./assets/images/24.jpg`, note: `Thầy trong chuyến đi thiện nguyện Sapa 2025` },
-            { image: `./assets/images/25.jpg`, note: `Thầy trong chuyến đi thiện nguyện Phú Yên 2025` },
-            { image: `./assets/images/26.JPG`, note: `Thầy trong chuyến đi thiện nguyện Sapa 2023` },
-            { image: `./assets/images/27.JPG`, note: `Lễ đón giao thừa 2024` },
-            { image: `./assets/images/28.jpg`, note: `Thầy và ban thư ký khóa tu 2024` },
-            { image: `./assets/images/41.JPEG`, note: `Thầy và ban trang trí khóa tu 2025` },
-            { image: `./assets/images/30.jpg`, note: `Thầy và bạn Huy Lê` },
-            { image: `./assets/images/29.jpg`, note: `Thầy và bạn Xuân Diệu` },
-            { image: `./assets/images/40.JPEG`, note: `Thầy và bạn Tùng` },
-            { image: `./assets/images/70.JPG`, note: `Thầy và bạn Tùng` },
-        ];
+    <script src="./assets/js/photo-data.js"></script>
+    <script src="./assets/js/wish-data.js"></script>
 
-        const wishList = [
-            { 
-                name: `Nước Lọc`,
-                content: `🪷 Hành trình kết nối những nhân duyên thật đặc biệt. Gia đình nhỏ chúng con thấy thật may mắn, biết ơn khi có Thầy luôn đồng hành, yểm trợ và chứng minh cho chúng con trong những bước chuyển quan trọng của cuộc đời. Nhìn lại vẫn thấy quá phước đức, quá mầu nhiệm. Nhân ngày tiếp nối Thầy, chúng con kính chúc Thầy sẽ tiếp tục gieo nhiều nhân duyên lành cho nhiều thế hệ tiếp nối. Thầy vẫn luôn là điểm tựa vững tin cho chúng con khi nghĩ về một người Thầy luôn quên mình mà nghĩ cho tất cả.... 🪷 Biết ơn Thầy của chúng con.`
-            },
-            { 
-                name: `Nhật Uyên`,
-                content: `Kính chúc Thầy ngày tiếp nối an lạc, vạn sự cát tường. Cảm ơn Thầy đã luôn dẫn dắt chúng con trên con đường đạo hạnh.`
-            },
-            { 
-                name: `Thanh Tùng`,
-                content: ``
-            },
-            { 
-                name: `Học trò 3`,
-                content: `...`
-            },
-        ];
+    <script>
 
         let currentIdx = 0;
 
