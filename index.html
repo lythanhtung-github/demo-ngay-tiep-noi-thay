@@ -198,6 +198,44 @@
             align-items: center;
             padding: 1rem;
         }
+
+                /* CSS bổ sung cho Step 5 */
+        .family-image-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+        }
+        .family-img-horizontal {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .quote-box {
+            background: rgba(255, 255, 255, 0.6);
+            border-left: 5px solid var(--primary-orange);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #78350f;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .on-note-box {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            max-width: 700px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #fde68a;
+        }
     </style>
 </head>
 <body>
@@ -217,14 +255,14 @@
         </div>
         <h2 class="text-2xl md:text-3xl font-bold text-orange-900">Thầy Nhật Đạo</h2>
         <p class="text-orange-700 mt-2">(太阳花)</p>
-        <button class="btn-orange" onclick="goToStep(2, 'Thầy ở trong chúng con như thế nào...')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(2, 'Thầy ở trong chúng con là...')">Tiếp tục</button>
     </section>
 
     <!-- STEP 2: Thầy trong chúng con (Gallery) -->
     <section id="step-2" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Thầy ở trong con</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Đầu tiên mời Thầy cùng xem lại những kỉ niệm này để định hình rõ hơn về Thầy trong chúng con nhé!</h2>
         <div class="gallery-grid" id="gallery-grid"></div>
-        <button class="btn-orange" onclick="goToStep(3, 'Là đệ người tử của Ôn')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(3, 'Trước hết, Thầy là Người Đệ Tử thân cận của Ôn')">Tiếp tục</button>
     </section>
 
     <!-- STEP 3: Thầy và Ôn -->
@@ -233,21 +271,53 @@
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="https://placehold.co/800x600/d97706/white?text=Hình+Thầy+và+Ôn" alt="Thầy và Ôn" class="w-full h-auto" loading="lazy">
         </div>
-        <button class="btn-orange" onclick="goToStep(4, 'Người Thầy tận tụy quan sát, dìu dắt các thế hệ của Chánh Tâm từng bước trưởng thành bằng sự kiên nhẫn và tâm từ bi')">Tiếp tục</button>
+        <div class="on-note-box">
+            <p class="text-orange-900 leading-relaxed italic mb-1">
+                "Và vì Thầy là người học trò, là thị giả của Ôn. Nên Thầy cũng chính là cánh tay nối dài giúp Ôn đưa Phật Pháp vào trong đời sống của giới trẻ bằng những phương pháp gần gũi, phù hợp với độ tuổi và tâm sinh lý của chúng con.
+            </p>
+            <p class="text-orange-900 leading-relaxed italic mb-1">
+                Thầy cũng chính là cầu nối của chúng con với Ôn. Giúp chúng con có cơ hội để truyền thông, tâm sự và trưởng thành dưới sự chỉ dạy của Ôn.
+            </p>
+            <p class="text-orange-900 leading-relaxed italic mb-1">
+                Lành thay."
+            </p>
+        </div>
+        <button class="btn-orange" onclick="goToStep(4, 'Một người Thầy đúng nghĩa với chữ &quot;Thầy&quot;, là người dẫn dắt, nâng đỡ, yêu thương chúng con')">Tiếp tục</button>
     </section>
 
     <!-- STEP 4: Thầy và Chánh Tâm -->
     <section id="step-4" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Thầy của Chánh Tâm</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Thầy người Thầy của Chánh Tâm</h2>
         <div class="w-full max-w-2xl border-4 border-white shadow-2xl rounded-lg overflow-hidden">
             <img src="./assets/images/CHANHTAM.jpg" alt="Thầy và Chánh Tâm" class="w-full h-auto" loading="lazy">
         </div>
-        <button class="btn-orange" onclick="goToStep(5, 'Và đây là một món quà đặc biệt của cho Thầy...')">Tiếp tục</button>
+                <div class="on-note-box">
+            <p class="text-orange-900 leading-relaxed italic mb-1">
+                "Người Thầy tận tụy quan sát, dìu dắt các thế hệ của Chánh Tâm từng bước trưởng thành bằng sự kiên nhẫn và tâm từ bi"
+            </p>
+        </div>
+        <button class="btn-orange" onclick="goToStep(5, 'Tiếp theo đây là món quà mà chúng con muốn gửi đến người Thầy đặc biệt của mình')">Tiếp tục</button>
     </section>
 
-    <!-- STEP 5: Video -->
+    <!-- STEP 5: Gia đình (Bổ sung ảnh + Câu nói + Video) -->
     <section id="step-5" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-8 uppercase tracking-wider">Lời chúc từ Gia đình huyết thông thân thương của Thầy</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-wider">Những lời thương chúc của gia đình huyết thống của Thầy, những người đã đưa Thầy đến với thế giới này, đến với chúng con</h2>
+        
+        <!-- Hình ảnh gia đình khung ngang -->
+        <div class="family-image-container">
+            <img src="./assets/images/FAMILY/GIA_DINH_HANH_PHUC.jpg" alt="Gia đình Thầy" class="family-img-horizontal" onerror="this.src='https://placehold.co/800x450/fde68a/92400e?text=Gia+Đình+Hạnh+Phúc'">
+            <div class="grid grid-cols-2 gap-4">
+                 <img src="./assets/images/FAMILY_2.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
+                 <img src="./assets/images/FAMILY_3.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <!-- Câu nói về gia đình -->
+        <div class="quote-box">
+            <p class="mb-2">"Gia đình không chỉ là nơi ta sinh ra, mà là mảnh đất nuôi dưỡng hạt giống yêu thương trong ta mỗi ngày."</p>
+        </div>
+
+        <!-- Video -->
         <div class="w-full max-w-2xl aspect-video bg-black border-4 border-white shadow-2xl rounded-lg overflow-hidden flex items-center justify-center">
             <video 
                 class="w-full h-full object-cover"
@@ -257,7 +327,8 @@
                 Trình duyệt của bạn không hỗ trợ video.
             </video>
         </div>
-        <button class="btn-orange" onclick="goToStep(6, 'Lời tri ân')">Tiếp tục</button>
+        
+        <button class="btn-orange" onclick="goToStep(6, 'Và đương nhiên là không thể thiếu những lời tri ân từ tận đáy lòng của Chánh Tâm gửi đến Thầy')">Tiếp tục</button>
     </section>
 
     <!-- STEP 6: Tri ân -->
@@ -266,12 +337,12 @@
             <h2 class="text-4xl font-script text-orange-800 mb-6">Lời tri ân</h2>
             <p class="text-1xl text-orange-900 leading-relaxed italic">"Chúng con thật may mắn khi được gặp Thầy và được nương tựa nơi Chánh Tâm. Bằng lòng từ bi và sự kiên nhẫn, Thầy đã dịu dàng dìu dắt chúng con trên con đường học cách hiểu mình, hiểu người và sống an lành hơn. Có những lúc chúng con còn vụng về, còn chậm bước, nhưng Thầy vẫn luôn ở đó, nhẹ nhàng nhắc nhở và bao dung nâng đỡ. Không chỉ qua những lời dạy giản dị mà sâu sắc, mà chính cách Thầy sống, cách Thầy lắng nghe và quan tâm đến mọi người đã trở thành những bài học quý giá cho chúng con. Sự hiện diện của Thầy như một nguồn bình an, giúp chúng con học cách sống chậm lại, biết yêu thương nhiều hơn và trân quý những điều tốt đẹp trong cuộc sống. Chúng con luôn biết ơn vì có Thầy mà hành trình của chúng con trở nên bình an, ý nghĩa và ấm áp hơn rất nhiều 💛"</p>
         </div>
-        <button class="btn-orange" onclick="goToStep(7, 'Lời chúc của những người học trò thân thương')">Tiếp tục</button>
+        <button class="btn-orange" onclick="goToStep(7, 'Vẫn chưa hết đâu ạ, chúng con vẫn còn nhiều thương mến nên chúng con được tiếp tục tỏ bày nhé!')">Tiếp tục</button>
     </section>
 
     <!-- STEP 7: Danh sách lời chúc -->
     <section id="step-7" class="step">
-        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-widest">Lời chúc của những người học trò thân thương</h2>
+        <h2 class="text-3xl font-heading text-orange-800 mb-6 uppercase tracking-widest">Lời chúc của những người học trò thân thương🌿</h2>
         <div class="scroll-container" id="wishes-container"></div>
         <button class="btn-orange mb-10" onclick="location.reload()">Quay lại từ đầu</button>
     </section>
@@ -298,7 +369,13 @@
     <script>
         // MẢNG ĐỐI TƯỢNG ẢNH (note và image)
         const photoList = [
-            { image: `./assets/images/05.jpg`, note: `Thầy chụp cùng 2 gia đình Chị Nhật và Chị Xù` },
+            { image: `./assets/images/01.jpg`, note: `Thầy lúc còn là điệu` },
+            { image: `./assets/images/02.jpg`, note: `Thầy lúc còn là điệu` },
+            { image: `./assets/images/03.jpg`, note: `Thầy và gia đình huyết thống` },
+            { image: `./assets/images/04.jpg`, note: `Thầy và gia đình huyết thống` },
+            { image: `./assets/images/05.jpg`, note: `Thầy và gia đình huyết thống` },
+            { image: `./assets/images/06.jpg`, note: `Thầy và gia đình huyết thống` },
+            { image: `./assets/images/07.jpg`, note: `Thầy chụp cùng 2 gia đình Chị Nhật và Chị Xù` },
             { image: `./assets/images/10.jpg`, note: `Thầy chụp cùng 2 lớp trưởng Chu Niên 17` },
             { image: `./assets/images/15.jpg`, note: `Ngày tiếp nối Thầy 2025` },
             { image: `./assets/images/20.jpg`, note: `Thầy và nhóm Hít Thở Mỉm Cười` },
@@ -310,9 +387,10 @@
             { image: `./assets/images/26.JPG`, note: `Thầy trong chuyến đi thiện nguyện Sapa 2023` },
             { image: `./assets/images/27.JPG`, note: `Lễ đón giao thừa 2024` },
             { image: `./assets/images/28.jpg`, note: `Thầy và ban thư ký khóa tu 2024` },
+            { image: `./assets/images/41.JPEG`, note: `Thầy và ban trang trí khóa tu 2025` },
+            { image: `./assets/images/30.JPG`, note: `Thầy và bạn Huy Lê` },
             { image: `./assets/images/29.jpg`, note: `Thầy và bạn Xuân Diệu` },
             { image: `./assets/images/40.JPEG`, note: `Thầy và bạn Tùng` },
-            { image: `./assets/images/41.JPEG`, note: `Thầy và ban trang trí khóa tu 2025` },
             { image: `./assets/images/70.JPG`, note: `Thầy và bạn Tùng` },
         ];
 
