@@ -12,7 +12,7 @@ const wishList = [
         content: ``
     },
     { 
-        name: `Học trò 3`,
-        content: `...`
+        name: `Huy Lê`,
+        content: `Thầy trong con là một người nông dân cần mẫn, âm thầm nuôi dưỡng những mầm thiện lành cho mỗi học trò.`
     },
 ];

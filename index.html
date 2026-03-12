@@ -129,7 +129,22 @@
             border: 3px solid white;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background-color: #e5e7eb; /* Placeholder color */
+            background-color: #fde68a; /* Màu nền placeholder */
+            position: relative;
+        }
+
+        /* Hiệu ứng loading nhẹ */
+        .gallery-item.loading::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .gallery-item:hover { 
@@ -142,6 +157,13 @@
             height: 100%; 
             object-fit: cover;
             display: block;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+            content-visibility: auto; 
+        }
+
+        .gallery-item img.loaded {
+            opacity: 1;
         }
 
         /* Modal xem ảnh phóng to */
@@ -308,10 +330,6 @@
         <!-- Hình ảnh gia đình khung ngang -->
         <div class="family-image-container">
             <img src="./assets/images/FAMILY/GIA_DINH_HANH_PHUC.jpg" alt="Gia đình Thầy" class="family-img-horizontal">
-            <div class="grid grid-cols-2 gap-4">
-                 <img src="./assets/images/FAMILY_2.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
-                 <img src="./assets/images/FAMILY_3.jpg" alt="Kỷ niệm" class="w-full aspect-video object-cover rounded-lg border-2 border-white" onerror="this.style.display='none'">
-            </div>
         </div>
 
         <!-- Câu nói về gia đình -->
@@ -377,7 +395,7 @@
 
         window.onload = () => {
             initIcons();
-            renderGallery();
+            renderGalleryOptimized();
             renderWishes();
         };
 
@@ -397,29 +415,65 @@
             }, 600);
         }
 
-        // Tạo lưới ảnh cho Step 2 (Sử dụng DocumentFragment và Event Delegation)
-        function renderGallery() {
+        // Tối ưu Gallery với IntersectionObserver
+        function renderGalleryOptimized() {
             const grid = document.getElementById('gallery-grid');
             const fragment = document.createDocumentFragment();
-            
+
+            // Khởi tạo các khung (placeholder) trước để tránh giật trang
             photoList.forEach((item, index) => {
                 const div = document.createElement('div');
-                div.className = 'gallery-item shadow-md';
-                div.dataset.index = index; // Lưu index vào data attribute
-                // Thêm loading="lazy" để tối ưu tải trang
-                div.innerHTML = `<img src="${item.image}" alt="Kỷ niệm ${index}" loading="lazy">`;
+                div.className = 'gallery-item loading shadow-md';
+                div.dataset.index = index;
+                
+                // Chỉ tạo tag img với thuộc tính data-src (lazy load)
+                const img = document.createElement('img');
+                img.dataset.src = item.image;
+                img.alt = `Kỷ niệm ${index}`;
+                img.loading = "lazy"; // Hỗ trợ browser native lazy load
+                img.decoding = "async";
+                
+                div.appendChild(img);
                 fragment.appendChild(div);
             });
-            
             grid.appendChild(fragment);
 
-            // Sử dụng Event Delegation: Chỉ gán 1 listener cho cha thay vì 98 listener cho con
+            // Cấu hình Observer để tải ảnh khi cuộn tới
+            const observerOptions = {
+                root: null,
+                rootMargin: '300px', // Tải trước khi hiện ra 300px
+                threshold: 0.01
+            };
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const div = entry.target;
+                        const img = div.querySelector('img');
+                        if (img && img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.onload = () => {
+                                img.classList.add('loaded');
+                                div.classList.remove('loading');
+                            };
+                            img.onerror = () => {
+                                img.src = 'https://placehold.co/400x250/f59e0b/white?text=Kỷ+Niệm';
+                                img.classList.add('loaded');
+                                div.classList.remove('loading');
+                            };
+                            delete img.dataset.src;
+                        }
+                        observer.unobserve(div);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.gallery-item').forEach(item => imageObserver.observe(item));
+            
+            // Event click duy nhất cho cả grid (Event Delegation)
             grid.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
-                if (item) {
-                    const index = parseInt(item.dataset.index);
-                    openModal(index);
-                }
+                if (item) openModal(parseInt(item.dataset.index));
             });
         }
 
